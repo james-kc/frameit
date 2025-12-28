@@ -16,6 +16,13 @@ def resize_and_center_image(input_path, output_path):
     # Open the original image
     img = Image.open(input_path)
     
+    # Fix orientation based on EXIF data
+    try:
+        from PIL import ImageOps
+        img = ImageOps.exif_transpose(img)
+    except Exception:
+        pass  # If no EXIF data or error, continue with original orientation
+    
     # Calculate maximum dimensions with padding
     max_width = CANVAS_WIDTH - (2 * HORIZONTAL_PADDING)
     max_height = CANVAS_HEIGHT - (2 * VERTICAL_PADDING)
@@ -70,7 +77,7 @@ def process_folder(input_folder, output_folder):
 
 if __name__ == "__main__":
     # Set your input and output folder paths here
-    input_folder = "test_images"  # Change this to your input folder path
+    input_folder = "input_images"  # Change this to your input folder path
     output_folder = "output_images"  # Change this to your output folder path
     
     process_folder(input_folder, output_folder)
