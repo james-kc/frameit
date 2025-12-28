@@ -1,12 +1,8 @@
 version: '3.8'
 
 services:
-  canvas-resizer:
+  frameit:
     build: .
     ports:
       - "5000:5000"
-    volumes:
-      - ./app.py:/app/app.py
-    environment:
-      - FLASK_ENV=development
     restart: unless-stopped
